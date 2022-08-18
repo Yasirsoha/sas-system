@@ -773,48 +773,48 @@ elseif($request->hasFile('image_file4')){
     }
 
 
-public function search_emp(Request $request){
- $company_id = Session::get('company_id');
- $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')
+                public function search_emp(Request $request){
+                $company_id = Session::get('company_id');
+                $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')
                 ->orderBy('Emp_Profile.EmployeeID', 'desc')
                 ->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.Name', 'LIKE', '%'.$request->keyword1.'%')->where('Emp_Profile.CompanyID','=',$company_id)
                 ->paginate(15);
        
         
-        return response()->json($emp_detail); 
-        }
-    public function get_com_employee(){
- $company_id = Session::get('company_id');
- $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')
+                  return response()->json($emp_detail); 
+                  }
+                  public function get_com_employee(){
+                  $company_id = Session::get('company_id');
+                  $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')
                 ->orderBy('Emp_Profile.Name', 'ASC')
                 ->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)
                 ->get();
        
         
-        return response()->json($emp_detail); 
-        }
-        public function cv_builder($id,$emp_code,$reg_id){
-            $this->fpdf->AddPage("P", ['210', '297']);
-
-         $company_id = Session::get('company_id');
-$emp_detail9 =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)->where('Emp_Profile.EmployeeID','=',$id)->where('Emp_Register.EmployeeCode','=',$emp_code)->where('Emp_Register.RegisterID','=',$reg_id)->exists(); 
-if($emp_detail9){
-$emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)->where('Emp_Profile.EmployeeID','=',$id)->get();   
- foreach($emp_detail as $emp_detail1){
-
- }
+                  return response()->json($emp_detail); 
+                  }
+                  public function cv_builder($id,$emp_code,$reg_id){
+                      $this->fpdf->AddPage("P", ['210', '297']);
+                  
+                   $company_id = Session::get('company_id');
+                  $emp_detail9 =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)->where('Emp_Profile.EmployeeID','=',$id)->where('Emp_Register.EmployeeCode','=',$emp_code)->where('Emp_Register.RegisterID','=',$reg_id)->exists(); 
+                  if($emp_detail9){
+                  $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)->where('Emp_Profile.EmployeeID','=',$id)->get();   
+                  foreach($emp_detail as $emp_detail1){
+                  
+                  }
 
 
         // Section 1
         
-          $this->fpdf->SetFont('Times','B',22);
-        $this->fpdf->SetTextColor(103, 159, 250 );
+                  $this->fpdf->SetFont('Times','B',22);
+                  $this->fpdf->SetTextColor(103, 159, 250 );
 
-        $this->fpdf->Text(75, 15, 'Curriculum Vitae'); 
-        $this->fpdf->Image('public/images/profile_images/pro.png',172,23,30,35);
+                  $this->fpdf->Text(75, 15, 'Curriculum Vitae'); 
+                  $this->fpdf->Image('public/images/profile_images/pro.png',172,23,30,35);
 
-        $this->fpdf->SetFont('Times','I',12);
-        $this->fpdf->SetTextColor(0,0,0);
+                  $this->fpdf->SetFont('Times','I',12);
+                  $this->fpdf->SetTextColor(0,0,0);
 
        // $this->fpdf->Image('public/images/profile_images/pro.png',15,26,5,0);
         $this->fpdf->SetFont('Times','B',22);
@@ -860,15 +860,15 @@ $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register
         
         foreach($array as $num){
         
-          $this->fpdf->SetFont('Times','',14);
+        $this->fpdf->SetFont('Times','',14);
         $this->fpdf->SetTextColor(0,0,0);
-          $this->fpdf->Cell(90, 7, "Job Position :".$num->JobTitle, 0,1, 'L');
-           $this->fpdf->Cell(90, 7, "Company Name :".$num->CompanyName, 0,1, 'L');
+        $this->fpdf->Cell(90, 7, "Job Position :".$num->JobTitle, 0,1, 'L');
+        $this->fpdf->Cell(90, 7, "Company Name :".$num->CompanyName, 0,1, 'L');
         $this->fpdf->SetFont('Times','',14);
         $this->fpdf->SetTextColor(0,0,0);
         $this->fpdf->Cell(40, 7, "From: ".$num->StartingDate, 0,0, 'L');
         $this->fpdf->Cell(40, 7, "To: ".$num->LeavingDate, 0,1, 'L');
-          $this->fpdf->ln(5);
+        $this->fpdf->ln(5);
         }
 
         $this->fpdf->ln(2);
@@ -880,7 +880,7 @@ $emp_detail =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register
         $this->fpdf->SetFont('Times','B',18);
         $this->fpdf->SetTextColor(103, 159, 250 );
         $this->fpdf->Cell(100 ,15,"Education",0,1,'L');
- $array2=DB::connection('sqlsrv2')->table('Employee_Qualification')->where('CompanyID','=',$company_id)->where('EmployeeID','=',$id)->orderBy('Id', 'desc')->get();
+        $array2=DB::connection('sqlsrv2')->table('Employee_Qualification')->where('CompanyID','=',$company_id)->where('EmployeeID','=',$id)->orderBy('Id', 'desc')->get();
         
         
         
