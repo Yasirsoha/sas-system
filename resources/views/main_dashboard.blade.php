@@ -25,10 +25,24 @@
                 .card-header:first-child {
     border-radius: 0.428rem 0.428rem 0 0 !important;
 }
+.card-back{
+    background-color: yellow;
+}
+#black{
+    background-color: black;
+}
+#white{
+    background-color: black;
+}
+.blackChange{
+    background-color: black;
+}
+.whiteChange{
+    background-color: white;
+}
 .card-header {
     padding: 1.5rem 1.5rem !important;
     margin-bottom: 0;
-    background-color: #fff !important;
     border-bottom: 0 solid rgba(34, 41, 47, 0.125) !important;
 }
 .table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {
@@ -102,14 +116,16 @@ border: none !important;
     <link rel="stylesheet" type="text/css" href="<?php echo asset(''); ?>public/app-assets/css/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="<?php echo asset(''); ?>public/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="<?php echo asset(''); ?>public/app-assets/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo asset(''); ?>public/app-assets/css/pages/toggle.css">
     <link rel="stylesheet" type="text/css" href="<?php echo asset(''); ?>public/assets/css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="<?php echo asset(''); ?>public/assets/css/darkmode.css"> 
 
     <link rel="stylesheet" type="text/css" href="{{asset('public/css/app.css')}}">
 
 </head>
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" >
 
-      <div id="app">
+      <div id="app" class="theme-toggle" >
         <navbar1></navbar1>
   <mainmenu1></mainmenu1>
 <router-view></router-view>

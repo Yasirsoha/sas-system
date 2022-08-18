@@ -117,16 +117,19 @@
                           Customer Name:
                         </h6>
                         <div class="invoice-customer">
-                          <select class="invoiceto form-select" v-model="customer">
+                          <select
+                            class="invoiceto form-select"
+                            v-model="Customer"
+                          >
                             <option></option>
                             <option value="shelby">
                               Shelby Company Limited
                             </option>
                             <option value="hunters">Hunters Corp</option>
                           </select>
-                           <span
+                          <span
                             style="color: #db4437; font-size: 11px"
-                            v-if="customer == ''"
+                            v-if="Customer == ''"
                             >{{ customer_error }}</span
                           >
                         </div>
@@ -139,17 +142,20 @@
                               Against Invoice:
                             </h6>
                             <div class="invoice-customer">
-                              <select class="invoiceto form-select" v-model="invoice_customer">
+                              <select
+                                class="invoiceto form-select"
+                                v-model="AgainstInvoice"
+                              >
                                 <option></option>
                                 <option value="shelby">
                                   Shelby Company Limited
                                 </option>
                                 <option value="hunters">Hunters Corp</option>
                               </select>
-                               <span
+                              <span
                                 style="color: #db4437; font-size: 11px"
-                                v-if="invoice_customer == ''"
-                                >{{ invoice_customer_error }}</span
+                                v-if="AgainstInvoice == ''"
+                                >{{ AgainstInvoice_error }}</span
                               >
                             </div>
                           </div>
@@ -161,16 +167,19 @@
                               Method Type:
                             </h6>
                             <div class="invoice-customer">
-                              <select class="invoiceto form-select" v-model="method">
+                              <select
+                                class="invoiceto form-select"
+                                v-model="Method"
+                              >
                                 <option></option>
                                 <option value="shelby">
                                   Shelby Company Limited
                                 </option>
                                 <option value="hunters">Hunters Corp</option>
                               </select>
-                               <span
+                              <span
                                 style="color: #db4437; font-size: 11px"
-                                v-if="method == ''"
+                                v-if="Method == ''"
                                 >{{ method_error }}</span
                               >
                             </div>
@@ -231,13 +240,13 @@
                             class="form-control ms-50"
                             id="salesperson"
                             placeholder="Edward Crowley"
-                            v-model="salesperson"
+                            v-model="Salesperson"
                           />
-                           <span
-                                style="color: #db4437; font-size: 11px"
-                                v-if="salesperson == ''"
-                                >{{ salesperson_error }}</span
-                              >
+                          <span
+                            style="color: #db4437; font-size: 11px"
+                            v-if="Salesperson == ''"
+                            >{{ Salesperson_error }}</span
+                          >
                         </div>
                       </div>
                       <div
@@ -255,14 +264,14 @@
                               <input
                                 type="text"
                                 class="form-control ms-50"
-                                id="salesperson"
+                                id="Salesperson"
                                 placeholder=""
-                                v-model="amount"
+                                v-model="Amount"
                               />
                               <span
                                 style="color: #db4437; font-size: 11px"
-                                v-if="amount == ''"
-                                >{{ amount_error }}</span
+                                v-if="Amount == ''"
+                                >{{ Amount_error }}</span
                               >
                             </p>
                           </div>
@@ -330,18 +339,18 @@ export default {
       user_access: {},
       counter: 1,
       companydetail: {},
-      customer: "",
+      Customer: "",
       customer_error: "",
-      invoice_customer: "",
-      invoice_customer_error: "",
-      amount: "",
-      amount_error: "",
+      AgainstInvoice: "",
+      AgainstInvoice_error: "",
+      Amount: "",
+      Amount_error: "",
       narration: "",
       narration_error: "",
-      method:"",
-      method_error:"",
-      salesperson:"",
-      salesperson_error:"",
+      MethodType: "",
+      method_error: "",
+      Salesperson: "",
+      Salesperson_error: "",
       disabled: false,
       timeout: null,
     };
@@ -349,32 +358,32 @@ export default {
   methods: {
     postVoucherHandler() {
       if (
-        this.customer == "" ||
-        this.invoice_customer == "" ||
-        this.amount == "" ||
+        this.Customer == "" ||
+        this.AgainstInvoice == "" ||
+        this.Amount == "" ||
         this.narration == "" ||
-        this.method=="" ||
-        this.salesperson==""
+        this.MethodType == "" ||
+        this.Salesperson == ""
       ) {
         this.$toastr.e("Please fill required fields!", "Caution!");
         {
           if (this.customer == "") {
             this.customer_error = "Please select customer name";
           }
-          if (this.invoice_customer == "") {
-            this.invoice_customer_error = "Please invoice customer name";
+          if (this.AgainstInvoice == "") {
+            this.AgainstInvoice_error = "Please invoice customer name";
           }
-          if (this.amount == "") {
-            this.amount_error = "Please enter amount";
+          if (this.Amount == "") {
+            this.Amount_error = "Please enter Amount";
           }
           if (this.narration == "") {
             this.narration_error = "Please enter narration";
           }
-          if(this.method==""){
-            this.method_error="Please select method type"
+          if (this.MethodType == "") {
+            this.method_error = "Please select method type";
           }
-          if(this.salesperson==""){
-            this.salesperson_error="Please eneter salesperson"
+          if (this.Salesperson == "") {
+            this.Salesperson_error = "Please eneter salesperson";
           }
         }
       }

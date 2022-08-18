@@ -1,7 +1,7 @@
 <template>
    
     <!-- BEGIN: Main Menu-->
-    <div  class="main-menu menu-fixed menu-accordion menu-shadow" v-bind:class="[(toggle=='black')? 'menu-dark' : 'menu-light']" data-scroll-to-active="true">
+    <div  class="main-menu menu-fixed menu-accordion menu-shadow" v-bind:class="[(toggle=='dark-theme-toggle')? 'menu-dark' : 'menu-light']" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item me-auto">
@@ -198,32 +198,32 @@
 </template>
 
 <script>
-import { bus } from '../../app';
+import { bus } from "../../app";
 export default {
-     mounted() {
-    bus.$on('darkToggle', (mode) => {
-      console.log(mode);
-      this.toggle=mode;
-    })
+    data() {
+    return {
+      toggle: "theme-toggle",
+      active_el: 0,
+      session_detail: {},
+    };
+  },
+  mounted() {
+    bus.$on("showId", (mode) => {
+      console.log("sidebar",mode);
+      this.toggle = mode;
+    });
     axios
       .get("./session_check")
       .then((response) => (this.session_detail = response.data))
       .catch((error) => console.log(error));
     console.log("Footer");
   },
-  data() {
-    return {
-    toggle:null,
-      active_el: 0,
-      session_detail: {},
-    };
-  },
+  
   methods: {
     activate: function (el) {
       this.active_el = el;
     },
   },
- 
 };
 </script>
 <style>

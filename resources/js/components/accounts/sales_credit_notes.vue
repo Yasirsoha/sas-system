@@ -116,10 +116,10 @@
                         <h6 class="invoice-to-title" style="margin-bottom: 5px">
                           Customer Name:
                         </h6>
-                        <div class="invoice-customer">
+                        <div class="invoice-CustomerName">
                           <select
                             class="invoiceto form-select"
-                            v-model="customer"
+                            v-model="CustomerName"
                           >
                             <option></option>
                             <option value="shelby">
@@ -129,8 +129,8 @@
                           </select>
                           <span
                             style="color: #db4437; font-size: 11px"
-                            v-if="customer == ''"
-                            >{{ customer_error }}</span
+                            v-if="CustomerName == ''"
+                            >{{ CustomerName_error }}</span
                           >
                         </div>
                         <div class="row" style="margin-top: 10px">
@@ -141,10 +141,10 @@
                             >
                               Against Invoice:
                             </h6>
-                            <div class="invoice-customer">
+                            <div class="invoice-CustomerName">
                               <select
                                 class="invoiceto form-select"
-                                v-model="invoice_customer"
+                                v-model="AgainstInvoice"
                               >
                                 <option></option>
                                 <option value="shelby">
@@ -154,8 +154,8 @@
                               </select>
                               <span
                                 style="color: #db4437; font-size: 11px"
-                                v-if="invoice_customer == ''"
-                                >{{ invoice_customer_error }}</span
+                                v-if="AgainstInvoice == ''"
+                                >{{ AgainstInvoice_error }}</span
                               >
                             </div>
                           </div>
@@ -166,17 +166,17 @@
                             >
                               Amount:
                             </h6>
-                            <div class="invoice-customer">
+                            <div class="invoice-CustomerName">
                               <input
                                 type="text"
                                 class="form-control ms-50"
                                 id="salesperson"
                                 placeholder=""
-                                v-model="amount"
+                                v-model="Amount"
                               />
                               <span
                                 style="color: #db4437; font-size: 11px"
-                                v-if="amount == ''"
+                                v-if="Amount == ''"
                                 >{{ amount_error }}</span
                               >
                             </div>
@@ -185,7 +185,7 @@
                       </div>
                       <div class="col-xl-4 p-0 ps-xl-2 mt-xl-0 mt-2">
                         <h6 class="mb-2" style="font-weight: bold">
-                          Customer Details:
+                          CustomerName Details:
                         </h6>
                         <table>
                           <tbody>
@@ -235,11 +235,11 @@
                             class="form-control"
                             rows="2"
                             id="note"
-                            v-model="narration"
+                            v-model="Narration"
                           ></textarea>
                           <span
                             style="color: #db4437; font-size: 11px"
-                            v-if="narration == ''"
+                            v-if="Narration == ''"
                             >{{ narration_error }}</span
                           >
                         </div>
@@ -282,36 +282,36 @@ export default {
       companydetail: {},
       disabled: false,
       timeout: null,
-      customer: "",
-      customer_error: "",
-      invoice_customer: "",
-      invoice_customer_error: "",
-      amount: "",
+      CustomerName: "",
+      CustomerName_error: "",
+      AgainstInvoice: "",
+      AgainstInvoice_error: "",
+      Amount: "",
       amount_error: "",
-      narration: "",
+      Narration: "",
       narration_error: "",
     };
   },
   methods: {
     postVoucherHandler() {
       if (
-        this.customer == "" ||
-        this.invoice_customer == "" ||
-        this.amount == "" ||
+        this.CustomerName == "" ||
+        this.AgainstInvoice == "" ||
+        this.Amount == "" ||
         this.narration == ""
       ) {
         this.$toastr.e("Please fill required fields!", "Caution!");
         {
-          if (this.customer == "") {
-            this.customer_error = "Please select customer name";
+          if (this.CustomerName == "") {
+            this.CustomerName_error = "Please select CustomerName name";
           }
-          if (this.invoice_customer == "") {
-            this.invoice_customer_error = "Please invoice customer name";
+          if (this.AgainstInvoice == "") {
+            this.AgainstInvoice_error = "Please invoice CustomerName name";
           }
-          if (this.amount == "") {
+          if (this.Amount == "") {
             this.amount_error = "Please enter amount";
           }
-          if (this.narration == "") {
+          if (this.Narration == "") {
             this.narration_error = "Please enter narration";
           }
         }

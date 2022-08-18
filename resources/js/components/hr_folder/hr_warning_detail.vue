@@ -1,5 +1,6 @@
 <template>
     <div v-if="user_access.hr_write=='true'">
+      <loader v-if="spinner" object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40" objectbg="#999793" opacity="80" name="circular"></loader>
         <!-- BEGIN: Content-->
         <div class="app-content content ">
             <div class="content-overlay"></div>
@@ -188,10 +189,9 @@ export default {
         return {
         user_access:{},
             adsdata: {
-
             },
             success: '',
-
+            spinner:false,
             keyword1: '',
 
             department: '',
@@ -245,18 +245,22 @@ export default {
     },
     mounted() {
         axios.get('department_detail2')
-            .then(data => this.departments = data.data)
+            .then(data => {this.spinner=false,this.departments = data.data}).catch((err)=>{
+                this.spinner=true
+            })
         axios.get('overall_designation')
-            .then(response => this.designations = response.data)
-            .catch(error => {});
+            .then(response => {this.spinner=false,this.designations = response.data})
+            .catch((err)=>{
         axios.get('overall_location')
-            .then(response => this.locations = response.data)
-            .catch(error => {});
+            .then(response => {this.spinner=false,this.locations = response.data})
+                            this.spinner=true
         axios.get('./count_warnings')
-            .then(response => this.count_users = response.data)
-            .catch(error => {});
+            .then(response =>{this.spinner=false, this.count_users = response.data})
+                        })
             axios.get('./fetch_user_hr_roles')
-.then(response => this.user_access = response.data)
+.then(response => {this.spinner=false,this.user_access = response.data}).catch((err)=>{
+                this.spinner=true
+            })
         this.getResult();
     }
 }

@@ -1,6 +1,7 @@
 <template>
     <div v-if="user_access.hr_write=='true'">
         <!-- BEGIN: Content-->
+          <loader v-if="spinner" object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40" objectbg="#999793" opacity="80" name="circular"></loader>
         <div class="app-content content ">
             <div class="content-overlay"></div>
             <div class="header-navbar-shadow"></div>
@@ -288,7 +289,7 @@
                 adsdata: {},
                 success: '',
                 keyword1: '',
-
+                spinner:false,
                 gender: 'All',
                 status: 'All',
                 min_price: '',
@@ -369,20 +370,21 @@
         },
         mounted() {
             axios.get('department_detail2')
-                .then(data => this.departments = data.data)
-                .catch(error => { });
+                .then(data =>{this.spinner=false, this.departments = data.data})
+                .catch(error => {this.spinner=true });
             axios.get('overall_designation')
-                .then(response => this.designations = response.data)
-                .catch(error => { });
+                .then(response =>{ this.spinner=false,this.designations = response.data})
+                .catch(error => { this.spinner=true});
             axios.get('overall_location')
-                .then(response => this.locations = response.data)
-                .catch(error => { });
+                .then(response => {this.spinner=false,this.locations = response.data})
+                .catch(error => { this.spinner=true});
             axios.get('./count_employees')
-                .then(response => this.count_users = response.data)
-                .catch(error => { });
+                .then(response => {this.spinner=false,this.count_users = response.data})
+                .catch(error => {this.spinner=true });
 
             axios.get('./fetch_user_hr_roles')
-                .then(response => this.user_access = response.data)
+                .then(response => {this.spinner=false,this.user_access = response.data})
+                 .catch(error => {this.spinner=true });
             this.getResult();
         }
     }

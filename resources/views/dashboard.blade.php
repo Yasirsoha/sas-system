@@ -23,7 +23,7 @@
 .card-header {
     padding: 1.5rem 1.5rem !important;
     margin-bottom: 0;
-    background-color: #fff !important;
+    /* background-color: #fff !important; */
     border-bottom: 0 solid rgba(34, 41, 47, 0.125) !important;
 }
 .table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {

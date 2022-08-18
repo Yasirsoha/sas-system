@@ -26,6 +26,7 @@
         "apexcharts": "^3.35.4",
         "bootstrap-vue": "^2.21.2",
         "laravel-vue-pagination": "^2.3.1",
+        "nprogress": "^0.2.0",
         "v-select2-component": "^0.4.7",
         "vue-apexcharts": "^1.6.2",
         "vue-fullcalendar": "^1.0.9",
@@ -33,10 +34,13 @@
         "vue-html2pdf": "^1.8.0",
         "vue-masked-input": "^0.5.2",
         "vue-multiselect": "^2.1.6",
+        "vue-nprogress": "^0.2.0",
         "vue-organization-chart": "^1.1.6",
+        "vue-progress-path": "0.0.2",
         "vue-router": "^3.5.3",
         "vue-toastr": "^2.1.2",
         "vue-tour": "^2.0.0",
+        "vue-ui-preloader": "^1.2.1",
         "vue2-editor": "^2.10.3",
         "vue_form_repeater": "^1.0.4"
     }

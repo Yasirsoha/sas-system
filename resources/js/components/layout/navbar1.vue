@@ -5,10 +5,10 @@
       navbar navbar-expand-lg
       align-items-center
       floating-nav
-       navbar-shadow
+      navbar-shadow
       container-xxl
     "
-    v-bind:class="[(mode=='black')? ' bg-dark' : 'navbar-light']"
+    v-bind:class="[(toggleMode == 'dark-theme-toggle') ? ' bg-dark' : 'navbar-light']"
   >
     <div class="navbar-container d-flex content">
       <div class="bookmark-wrapper d-flex align-items-center">
@@ -70,10 +70,9 @@
         </ul>
       </div>
       <ul class="nav navbar-nav align-items-center ms-auto">
-        
-        <li class="nav-item d-none d-lg-block" @click="modeHandler">
-          <a class="nav-link nav-link-style">
-            <i class="ficon" v-bind:data-feather="[(mode=='black')? 'sunrise' : 'moon' ]"></i>
+        <li class="nav-item d-none d-lg-block" v-on:click="modeHandler">
+          <a class="nav-link nav-link-style mooncss">
+            <i class="ficon" data-feather="moon"></i>
           </a>
         </li>
 
@@ -1002,7 +1001,7 @@
   </nav>
 </template>
 <script>
-import { bus } from '../../app';
+import { bus } from "../../app";
 export default {
   data() {
     return {
@@ -1016,7 +1015,6 @@ export default {
       fetchimage: "",
       com_year: "",
       striped: true,
-
       max: 100,
       oldPass: "",
       newPass1: "",
@@ -1026,61 +1024,124 @@ export default {
       e_newPass2: "",
       showPassword1: false,
       showPassword2: false,
-      mode:"white",
+      mode: "white",
       old_success: "0",
-
+      toggleMode: "theme-toggle",
       disabled: false,
       timeout: null,
-
+      modify:false,
       disabled1: false,
       timeout1: null,
     };
   },
-  created(){
+  mounted() {
+    const data = JSON.parse(localStorage.getItem("mode"));
+    console.log("localstorage", data);
+  },
 
-        localStorage.setItem("mode","bg-dark")
+  created() {
+    window.localStorage.setItem("mode", JSON.stringify(this.mode));
+    window.localStorage.setItem("bg", JSON.stringify("bg-dark"));
   },
   methods: {
-
     modeHandler() {
-
-const val=localStorage.getItem("mode");
-            const div=document.getElementsByClassName("card");
-            const header=document.getElementsByClassName("card-header");
-            const cardBody=document.getElementsByClassName("card-body");
-        if(this.mode=="white"){
       
-      document.body.style.background="black"
-      document.body.style.color="white"
-for (const list of header) {
-  list.classList.add(val);
-}
-    for (const box of div) {
-  box.classList.add(val);
-}
-    
-    for (const list1 of cardBody) {
-  list1.classList.add(val);
-}
- this.mode="black"
-    // div.classList.replace("")
-    }
-    else{
+      // const header = document.querySelectorAll(".card-header");
+      const header=document.getElementsByClassName("card-header")
+      const body=document.getElementsByClassName("card-body")
+      console.log(header);
+      if (this.toggleMode == "theme-toggle") {
+        alert("Enable Dark Mode");
+        // header.forEach(box => {
+        //   console.log("box",box);
+        //   box.id += "black";
+        // });
+         
+        //  body.forEach(box => {
+        //   console.log("box",box);
+        //   box.id += "black";
+        // });
+         
+
+        const app = document.getElementById("app");
+        const checked=app.classList.replace("theme-toggle", "dark-theme-toggle");
+        if(checked){
+          this.modify=true;
+        }
+        localStorage.setItem("class","theme-toggle")
        
-      document.body.style.background="white"
-       document.body.style.color="black"
-    for (const box of div) {
-  box.classList.replace(val,'bg-white');
-    }
-     for (const list of header) {
-  list.classList.replace(val,'bg-white');
-}
-     for (const list1 of cardBody) {
-  list1.classList.replace(val,'bg-white');
-}
- this.mode="white"
-    }
-     bus.$emit('darkToggle', this.mode);
+        //  this.mode="black"
+        this.toggleMode = "dark-theme-toggle";
+      } else {
+        alert("Enable white Mode");
+        const app = document.getElementById("app");
+        const checking=app.classList.replace("dark-theme-toggle", "theme-toggle");
+        if(checking){
+          this.modify=false;
+        }
+        // header.forEach(box => {
+        //   console.log("box",box);
+        //   box.id -= "black";
+        // });
+        //  body.forEach(box => {
+        //   console.log("box",box);
+        //   box.id -= "black";
+        // });
+       localStorage.getItem("class")
+        this.toggleMode = "theme-toggle";
+      }
+
+      // if(this.toggleMode == "theme-toggle"){
+      //    for (const box of header) {
+      //             // header=[box]
+      //           box.id = "bac";
+      //         }
+      // }
+      // const div = document.getElementsByClassName("card");
+      // const header = document.getElementsByClassName("card-header");
+      // const cardBody = document.getElementsByClassName("card-body");
+      // if (this.mode == "white") {
+      //   document.body.style.background = "black";
+      //   document.body.style.color = "white";
+
+      //   const bgDark = JSON.parse(localStorage.getItem("bg"));
+      //   for (const list of header) {
+      //     list.classList.add(bgDark);
+      //   }
+      //   for (const box of div) {
+      //     box.classList.add(bgDark);
+      //   }
+
+      //   for (const list1 of cardBody) {
+      //     list1.classList.add(bgDark);
+      //   }
+      //   window.localStorage.setItem("bg", JSON.stringify("bg-white"));
+      //   this.mode = "black";
+      //   // div.classList.replace("")
+      // } else {
+      //   document.body.style.background = "white";
+      //   document.body.style.color = "black";
+      //   const bgDark = JSON.parse(localStorage.getItem("bg"));
+      //   for (const box of div) {
+      //     if (bgDark == "bg-white") {
+      //       box.classList.remove(bgDark);
+      //     }
+      //   }
+      //   for (const list of header) {
+      //     if (bgDark == "bg-white") {
+      //       list.classList.remove(bgDark);
+      //     }
+      //   }
+      //   for (const list1 of cardBody) {
+      //     if (bgDark == "bg-white") {
+      //       list1.classList.remove(bgDark);
+      //     }
+      //   }
+      //   window.localStorage.setItem("bg", JSON.stringify("bg-dark"));
+      //   this.mode = "white";
+      // }
+      bus.$emit("darkToggle", this.modify);
+      bus.$emit("showId", this.toggleMode);
     },
     methods: {
       delay() {
@@ -1157,10 +1218,15 @@ for (const list of header) {
         axios
           .get("logout/")
           .then((response) => {
-            window.location.assign("http://192.168.0.163/sa_sass1.1");
+            window.location.assign("http://localhost/sa_sass1.1");
             this.$toastr.i("Logout Successfully");
           })
           .catch((error) => console.log(error));
+      },
+    },
+    watch: {
+      nightMode: function () {
+        console.log("dark mode toggle ", this.toggleMode);
       },
     },
     mounted() {

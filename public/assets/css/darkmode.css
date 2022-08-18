@@ -1,0 +1,15 @@
+
+.theme-toggle{
+    background-color: white;
+    color: black;
+}
+.dark-theme-toggle{
+    background-color: black;
+    color: white;
+}
+#black{
+    background-color: black;
+}
+#white{
+    background-color: black;
+}

@@ -346,7 +346,7 @@ Route::get('/count_firing_d/','App\Http\Controllers\HrController@count_firing_d'
 Route::get('/count_hiring_d/','App\Http\Controllers\HrController@count_hiring_d');
 Route::get('/view_hr_configuration/','App\Http\Controllers\HrController@view_hr_configuration');
 Route::post('submit_config','App\Http\Controllers\HrController@submit_config');
-Route::get('/overall_payroll_employees','App\Http\Controllers\HrController@overall_payroll_employees');
+Route::get('overall_payroll_employees','App\Http\Controllers\HrController@overall_payroll_employees');
 Route::get('/fetch_emp_detail/{id}','App\Http\Controllers\HrController@fetch_emp_detail');
 Route::post('submit_payroll_detail','App\Http\Controllers\HrController@submit_payroll_detail');
 Route::get('filter_employees/{emp_id}/{dept}/{loc}/{des}','App\Http\Controllers\HrController@filter_employees');

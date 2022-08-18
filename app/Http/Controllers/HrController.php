@@ -3011,8 +3011,15 @@ return request()->json(200,$table);
 
     public function overall_payroll_employees(){
        $company_id=Session::get('company_id');
-       $arr =DB::connection('sqlsrv2')->table('Emp_Profile')->join('PayrollEmployeesDetail', 'Emp_Profile.EmployeeID', '=', 'PayrollEmployeesDetail.EmployeeID')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->orderBy('PayrollEmployeesDetail.EmployeeID', 'desc')->select('Emp_Profile.Name','Emp_Profile.Photo','PayrollEmployeesDetail.*','Emp_Register.Department','Emp_Register.PostingCity','Emp_Register.Designation','Emp_Register.EmployeeCode')->where('PayrollEmployeesDetail.CompanyID','=',$company_id)->where('PayrollEmployeesDetail.Statusd','=','C')->paginate(20); 
-        return request()->json(200,$arr);
+       $arr =DB::connection('sqlsrv2')->table('Emp_Profile')
+       ->join('PayrollEmployeesDetail', 'Emp_Profile.EmployeeID', '=', 'PayrollEmployeesDetail.EmployeeID')
+       ->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')
+       ->orderBy('PayrollEmployeesDetail.EmployeeID', 'desc')
+       ->select('PayrollEmployeesDetail.Statusd', 'Emp_Profile.Name','Emp_Profile.Photo','PayrollEmployeesDetail.*','Emp_Register.Department','Emp_Register.PostingCity','Emp_Register.Designation','Emp_Register.EmployeeCode')
+       ->where('PayrollEmployeesDetail.CompanyID','=',$company_id)
+       ->where('PayrollEmployeesDetail.Statusd','=','C')
+       ->get();
+       return request()->json(200,$arr);
     }
     public function fetch_emp_detail($id){
        $company_id=Session::get('company_id');
@@ -3491,7 +3498,7 @@ public function allowance_arrears(){
          }
 public function find_payroll_emp_financeapproval($id){
           $company_id=Session::get('company_id');
-           $arr =DB::connection('sqlsrv2')->table('Emp_Profile')->join('PayrollFinanceApproval', 'Emp_Profile.EmployeeID', '=', 'PayrollFinanceApproval.EmployeeID')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->orderBy('Emp_Register.Department', 'Desc')->select('Emp_Profile.Name','Emp_Profile.Photo','PayrollFinanceApproval.*','Emp_Register.Department','Emp_Register.PostingCity','Emp_Register.Designation','Emp_Register.MethodType','Emp_Register.EmployeeCode')->where('PayrollFinanceApproval.CompanyID','=',$company_id)->where('PayrollFinanceApproval.FinanceApprovalID','=',$id)->get();
+           $arr = DB::connection('sqlsrv2')->table('Emp_Profile')->join('PayrollFinanceApproval', 'Emp_Profile.EmployeeID', '=', 'PayrollFinanceApproval.EmployeeID')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->orderBy('Emp_Register.Department', 'Desc')->select('Emp_Profile.Name','Emp_Profile.Photo','PayrollFinanceApproval.*','Emp_Register.Department','Emp_Register.PostingCity','Emp_Register.Designation','Emp_Register.MethodType','Emp_Register.EmployeeCode')->where('PayrollFinanceApproval.CompanyID','=',$company_id)->where('PayrollFinanceApproval.FinanceApprovalID','=',$id)->get();
          
              return request()->json(200,$arr);
         }

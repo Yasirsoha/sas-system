@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="app-content content">
       <div class="noprint content-overlay"></div>
       <div class="noprint cheader-navbar-shadow"></div>
@@ -82,13 +82,13 @@
                             </div>
                             <input
                               type="text"
-                              v-model="invoice_input"
+                              v-model="Code"
                               class="form-control invoice-edit-input"
                               placeholder="53634"
                             />
                             <span
                               style="color: #db4437; font-size: 11px"
-                              v-if="invoice_input == ''"
+                              v-if="Code == ''"
                               >{{ invoice_input_error }}</span
                             >
                           </div>
@@ -98,12 +98,12 @@
                           <input
                             type="date"
                             class="form-control invoice-edit-input"
-                            v-model="invoice_input_date"
+                            v-model="Date"
                           />
                           <span
                             style="color: #db4437; font-size: 11px"
-                            v-if="invoice_input_date == ''"
-                            >{{ invoice_input_date_error }}</span
+                            v-if="Date == ''"
+                            >{{ Date_error }}</span
                           >
                         </div>
                       </div>
@@ -131,7 +131,7 @@
                         <div class="invoice-customer">
                           <select
                             class="invoiceto form-select"
-                            v-model="select_company"
+                            v-model="InvoiceTo"
                           >
                             <option></option>
                             <option value="shelby">
@@ -141,8 +141,8 @@
                           </select>
                           <span
                             style="color: #db4437; font-size: 11px"
-                            v-if="select_company == ''"
-                            >{{ select_company_error }}</span
+                            v-if="InvoiceTo == ''"
+                            >{{ InvoiceTo_error }}</span
                           >
                         </div>
                       </div>
@@ -220,7 +220,7 @@
                                       <select
                                         class="form-select item-details"
                                         name="first[]"
-                                        v-model="items_details"
+                                        v-model="Item"
                                       >
                                         <option value="App Design">
                                           App Design
@@ -240,8 +240,8 @@
                                       </select>
                                       <span
                                         style="color: #db4437; font-size: 11px"
-                                        v-if="items_details == ''"
-                                        >{{ items_details_error }}</span
+                                        v-if="Item == ''"
+                                        >{{ Item_error }}</span
                                       >
                                       <textarea
                                         name="second[]"
@@ -252,8 +252,8 @@
                                       ></textarea>
                                       <span
                                         style="color: #db4437; font-size: 11px"
-                                        v-if="bug_fixes == ''"
-                                        >{{ bug_fixes_error }}</span
+                                        v-if="Customization == ''"
+                                        >{{ Customization_error }}</span
                                       >
                                     </div>
                                     <div class="col-lg-3 col-12 my-lg-0 my-2">
@@ -267,12 +267,12 @@
                                         type="number"
                                         class="form-control"
                                         placeholder="Per Item Cost"
-                                        v-model="item_cost"
+                                        v-model="Cost"
                                       />
                                       <span
                                         style="color: #db4437; font-size: 11px"
-                                        v-if="item_cost == ''"
-                                        >{{ item_cost_error }}</span
+                                        v-if="Cost == ''"
+                                        >{{ Cost_error }}</span
                                       >
                                       <div class="mt-2">
                                         <div class="row form-row mt-50">
@@ -281,7 +281,7 @@
                                               name="fourth[]"
                                               id="tax-1-input"
                                               class="form-select tax-select"
-                                              v-model="tax_input"
+                                              v-model="Tax"
                                             >
                                               <option value="">
                                                 Select Tax
@@ -297,8 +297,8 @@
                                                 color: #db4437;
                                                 font-size: 11px;
                                               "
-                                              v-if="tax_input == ''"
-                                              >{{ tax_input_error }}</span
+                                              v-if="Tax == ''"
+                                              >{{ Tax_error }}</span
                                             >
                                           </div>
                                         </div>
@@ -316,12 +316,12 @@
                                         name="fourth[]"
                                         value="1"
                                         placeholder="1"
-                                        v-model="qty"
+                                        v-model="Qty"
                                       />
                                       <span
                                         style="color: #db4437; font-size: 11px"
-                                        v-if="qty == ''"
-                                        >{{ qty_error }}</span
+                                        v-if="Qty == ''"
+                                        >{{ Qty_error }}</span
                                       >
                                     </div>
                                     <div class="col-lg-2 col-12 mt-lg-0 mt-2">
@@ -340,12 +340,12 @@
                                         readonly
                                         class="form-control"
                                         placeholder=""
-                                        v-model="price"
+                                        v-model="Price"
                                       />
                                       <!-- <span
                                         style="color: #db4437; font-size: 11px"
-                                        v-if="price == ''"
-                                        >{{ price_error }}</span
+                                        v-if="Price == ''"
+                                        >{{ Price_error }}</span
                                       > -->
                                     </div>
                                   </div>
@@ -409,20 +409,20 @@
                     <div class="row invoice-sales-total-wrapper">
                       <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
                         <div class="d-flex flex-column align-items-center mb-1">
-                          <label for="salesperson" class="form-label"
+                          <label for="Salesperson" class="form-label"
                             >Salesperson:</label
                           >
                           <input
                             type="text"
                             class="form-control ms-50"
-                            id="salesperson"
+                            id="Salesperson"
                             placeholder="Edward Crowley"
-                            v-model="salesperson"
+                            v-model="Salesperson"
                           />
                           <span
                             style="color: #db4437; font-size: 11px"
-                            v-if="salesperson == ''"
-                            >{{ salesperson_error }}</span
+                            v-if="Salesperson == ''"
+                            >{{ Salesperson_error }}</span
                           >
                         </div>
                       </div>
@@ -502,78 +502,80 @@ It was a pleasure working with you and your team. We hope you will keep us in mi
   </div>
 </template>
 <script>
+import { code } from "../../../../public/app-assets/vendors/js/editors/quill/ui/icons";
+
 export default {
   data() {
     return {
       user_access: {},
       counter: 1,
       companydetail: {},
-      invoice_input: "",
+      Code: "",
       invoice_input_error: "",
-      invoice_input_date: "",
-      invoice_input_date_error: "",
-      select_company: "",
-      select_company_error: "",
-      items_details: "",
-      items_details_error: "",
-      salesperson: "",
-      salesperson_error: "",
-      tax_input: "",
-      tax_input_error: "",
+      Date: "",
+      Date_error: "",
+      InvoiceTo: "",
+      InvoiceTo_error: "",
+      Item: "",
+      Item_error: "",
+      Salesperson: "",
+      Salesperson_error: "",
+      Tax: "",
+      Tax_error: "",
       disabled: false,
       timeout: null,
-      price: "",
-      price_error: "",
-      qty: "",
-      qty_error: "",
-      item_cost: "",
-      item_cost_error: "",
-      bug_fixes: "",
-      bug_fixes_error: "",
+      Price: "",
+      Price_error: "",
+      Qty: "",
+      Qty_error: "",
+      Cost: "",
+      Cost_error: "",
+      Customization: "",
+      Customization_error: "",
     };
   },
   methods: {
     post_invoice_btn_handler() {
       if (
-        this.invoice_input == "" ||
-        this.invoice_input_date == "" ||
-        this.select_company == "" ||
-        this.items_details == "" ||
-        this.salesperson == "" ||
-        this.tax_input == "" ||
-        this.price == "" ||
-        this.item_cost == "" ||
-        this.bug_fixes == ""
+        this.Code == "" ||
+        this.Date == "" ||
+        this.InvoiceTo == "" ||
+        this.Item == "" ||
+        this.Salesperson == "" ||
+        this.Tax == "" ||
+        this.Price == "" ||
+        this.Cost == "" ||
+        this.Customization == ""
       ) {
         this.$toastr.e("Please fill required fields!", "Caution!");
-        if (this.invoice_input == "") {
+        if (this.code == "") {
           this.invoice_input_error = "Please enter edit invoice input";
         }
-        if (this.invoice_input_date == "") {
-          this.invoice_input_date_error = "Please enter invoice date input";
+        if (this.Date == "") {
+          this.Date_error = "Please enter invoice date input";
         }
-        if (this.select_company == "") {
-          this.select_company_error = "Please select company";
+        if (this.InvoiceTo == "") {
+          this.InvoiceTo_error = "Please select company";
         }
-        if (this.items_details == "") {
-          this.items_details_error = "Please select item";
+        if (this.Item == "") {
+          this.Item_error = "Please select item";
         }
-        if (this.salesperson == "") {
-          this.salesperson_error = "Please enter salesperson field";
+        if (this.Salesperson == "") {
+          this.Salesperson_error = "Please enter Salesperson field";
         }
-        if (this.tax_input == "") {
-          this.tax_input_error = "Please select tax field";
+        if (this.Tax == "") {
+          this.Tax_error = "Please select tax field";
         }
-        if (this.price == "") {
-          this.price_error = "Please enter price";
+        if (this.Price == "") {
+          this.Price_error = "Please enter Price";
         }
-        if (this.qty == "") {
-          this.qty_error = "Please enter qty";
+        if (this.Qty == "") {
+          this.Qty_error = "Please enter Qty";
         }
-        if (this.item_cost == "") {
-          this.item_cost_error = "Please enter item cost ";
+        if (this.Cost == "") {
+          this.Cost_error = "Please enter item cost ";
         }
-        if (this.bug_fixes == "") {
+        if (this.Customization == "") {
           this.bug_fixes_error = "Please enter costomization & bug fixes";
         }
       }
@@ -600,9 +602,7 @@ export default {
       this.issue_warning();
     },
   },
-  mounted() {
-    
-  },
+  mounted() {},
 };
 </script>
 <style scoped>
