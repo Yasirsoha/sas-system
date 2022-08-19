@@ -507,7 +507,7 @@
                                                     <input v-model="h_description" type="text" id="modalAddCardName" class="form-control" />
                                                 </div>
                                                 <div class="col-12 text-center">
-                                                    <button type="submit" :disabled="disabled1" @click="delay1()" class="btn btn-primary me-1 mt-1" data-bs-dismiss="modal" aria-label="Close">Submit</button>
+                                                    <button type="submit" :disabled="disabled1" @click="delay1()" class="btn btn-primary me-1 mt-1">Submit</button>
                                                     <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
                                                         Cancel
                                                     </button>
@@ -707,6 +707,12 @@
                     this.disabled1 = false
                 }, 5000)
                 this.submit_holiday()
+                if (!this.h_holiday_name == '' && !this.h_date_from == '' && !this.h_date_to=='' && !this.h_description=="") {
+                    this.h_holiday_name ="",
+                    this.h_date_from="",
+                    this.h_date_to="",
+                    this.h_description=""
+                }
             },
             delay2() {
                 this.disabled2 = true

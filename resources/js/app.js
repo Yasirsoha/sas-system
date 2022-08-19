@@ -154,6 +154,7 @@ const warning_view =
 const warning_create =
     require("./components/hr_folder/hr_warning_create.vue").default;
 const hr_reports = require("./components/hr_folder/hr_reports.vue").default;
+const hr_account_reports = require("./components/hr_folder/hr_account_reports.vue").default;
 //attendance
 const hr_att_rosters =
     require("./components/hr_folder/hr_att_rosters.vue").default;
@@ -600,6 +601,11 @@ const routes = [
         path: "/hr/reports",
         name: "hr_reports",
         component: hr_reports,
+    },
+    {
+        path: "/hr/account",
+        name: "hr_account_reports",
+        component: hr_account_reports,
     },
     {
         path: "/hr/warning_detail",

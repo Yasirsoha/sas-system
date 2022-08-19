@@ -269,6 +269,7 @@ Route::post('filter_activity','App\Http\Controllers\clientAdminController@filter
 Route::get('/get_com_employee/','App\Http\Controllers\HrController@get_com_employee');
 Route::get('/org_employees/{id}','App\Http\Controllers\HrController@org_employees');
 Route::get('cv_builder/{id}/{emp_code}/{reg_id}','App\Http\Controllers\HrController@cv_builder');
+Route::get('offer_letter','App\Http\Controllers\HrController@offer_letter');
 Route::post('get_emp_detail','App\Http\Controllers\HrController@get_emp_detail');
 
 Route::get('warning_reasons','App\Http\Controllers\HrController@warning_reasons');

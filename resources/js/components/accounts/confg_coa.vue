@@ -171,6 +171,17 @@
                                             </li>
                                           </ul>
                                         </li>
+                                        <li @click="handleCaret"><i class="fa-solid caret1" :class="!show? 'fa-caret-right': 'fa-caret-down'"/>   <span>All</span>
+                                        <ul class="nested">
+                                          <li class="tea">Data 1</li>
+                                          <li class="tea">Data 2</li>
+                                          <li class="tea">Data 3</li>
+                                        </ul>
+                                        </li>
+                                         
+                                      </ul>
+                                      <ul>
+                                        
                                       </ul>
                                     </div>
                                     <div
@@ -403,10 +414,28 @@ export default {
       main_head: "",
       main_head_error: "",
       adsdata: {},
+      show:false
     };
   },
 
   methods: {
+    handleCaret(){
+    // alert("click")
+    this.show=!this.show;
+      var toggler = document.getElementsByClassName("caret1");
+      var i;
+
+      for (i = 0; i < toggler.length; i++) {
+        // const arrow = toggler[i];
+        toggler[i].addEventListener("click", function () {
+          this.parentElement.querySelector(".nested").classList.toggle("active");
+          // this.classList.toggle("caret-down");
+          // const input = this.previousElementSibling;
+          // const input1 = arrow.previousSibling;
+          //  console.log(input,input1);
+        });
+      }
+    },
     submit_session() {
       if (this.account_name == "" || this.Type == "" || this.main_head == "") {
         this.$toastr.e("Please fill required fields!", "Caution!");
@@ -459,11 +488,13 @@ export default {
       var i;
 
       for (i = 0; i < toggler.length; i++) {
+        const arrow = toggler[i];
         toggler[i].addEventListener("click", function () {
-          this.parentElement
-            .querySelector(".nested")
-            .classList.toggle("active");
+          this.parentElement.querySelector(".nested").classList.toggle("active");
           this.classList.toggle("caret-down");
+          const input = this.previousElementSibling;
+          const input1 = arrow.previousSibling;
+           console.log(input,input1);
         });
       }
     });
@@ -505,7 +536,9 @@ ul,
 .nested {
   display: none;
 }
-
+.inactive{
+  display: none;
+}
 .active {
   display: block;
 }

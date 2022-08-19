@@ -269,9 +269,9 @@ $emp_code=$arr1->EmployeeCode;
     }
 
     public function insert_education(Request $request){
-         $company_id=Session::get('company_id');
-          $username=Session::get('username');
-          $degree_type = $request->get('first'); 
+       $company_id=Session::get('company_id');
+       $username=Session::get('username');
+       $degree_type = $request->get('first'); 
        $degree_name = $request->get('second');
        $inst_name = $request->get('third');
        $passing_year = $request->get('fourth');
@@ -280,7 +280,7 @@ $emp_code=$arr1->EmployeeCode;
       DB::connection('sqlsrv2')->table('Employee_Qualification')->where('EmployeeID', $id)->delete();
         $de_type1 = explode("," , $degree_type);
         for($x=1;$x<count($de_type1);$x++){
-             $de_type = explode("," , $degree_type);
+        $de_type = explode("," , $degree_type);
        $de_name = explode("," , $degree_name);
        $ins_name = explode("," , $inst_name);
          $pas_year = explode("," , $passing_year);
@@ -789,12 +789,54 @@ elseif($request->hasFile('image_file4')){
                 ->orderBy('Emp_Profile.Name', 'ASC')
                 ->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)
                 ->get();
-       
-        
                   return response()->json($emp_detail); 
                   }
+
+
+
+                  public function offer_letter(){
+                    $this->fpdf->AddPage("P", ['210', '297']);
+                    $this->fpdf->SetFont('Times','B',18);
+                    $this->fpdf->SetTextColor(41, 46, 46);
+  
+                    $this->fpdf->Text(75, 15, 'Offer Letter'); 
+                    $this->fpdf->SetFont('Times','',12);
+                  $this->fpdf->SetTextColor(41, 46, 46 );
+                  $this->fpdf->Text(30, 30,'18 Aug 2022');
+                  $this->fpdf->SetFont('Times','',16);
+                  $this->fpdf->SetTextColor(0,0,0);
+                  $this->fpdf->Text(30, 38, "Yasir Sohail");
+                  $this->fpdf->SetFont('Times','',12);
+                 $this->fpdf->Text(30, 44, "yasirsohail912@gmail.com");
+                 $this->fpdf->Text(30, 50, "Faisalabad");
+                 $this->fpdf->SetFont('Times','',16);
+                 $this->fpdf->Text(30, 60, "Dear Yasir Sohail,");
+                 $this->fpdf->SetFont('Times','',12);
+                 $this->fpdf->SetY(63);
+                 $this->fpdf->SetX(30);
+                 $this->fpdf->MultiCell(0, 5, 'Congratulations! We are pleased to confirm you have been selected to work for Company,Division and Department. We are delighted to make you the following job offer.The position we are offering is that of Job Title at a salary/wage of salary and hourly rate per (year/month/week/hour). This position reports to (Title and name of Supervisor). Your working hours will be from (state working hours) and/or (normal workdays). This is a (permanent/seasonal/contract/casual) position. (If this is a contract position state expected length of term)');
+                 $this->fpdf->SetY(94);
+                 $this->fpdf->SetX(30);
+                 $this->fpdf->MultiCell(0, 5,'We would like you to start work on (state desired date) at (state start time). Please report to (name of person to see on start date), for documentation and orientation. If this date is not acceptable, please contact me immediately Please sign the enclosed copy of this letter and return it to me by (specify date) to indicate your acceptance of this offer We are confident you will be able to make a significant contribution to the success of our (Company/Division/Department) and look forward to working with you.');
+                 $this->fpdf->Text(30, 134, "Sincerely, ");
+                 $this->fpdf->Text(30, 139, "Name:  Yasir Sohail, ");
+                 $this->fpdf->Text(30, 144, "Position: Software Engineer, ");
+                                
+                 $this->fpdf->ln(7);
+                 $this->fpdf->ln(7);
+ 
+                 $this->fpdf->Text(30, 158, "I accept the offer as outlined above.  ");
+ 
+                 $this->fpdf->Output();
+                 exit;
+                  }
+
+
+
+
                   public function cv_builder($id,$emp_code,$reg_id){
                       $this->fpdf->AddPage("P", ['210', '297']);
+
                   
                    $company_id = Session::get('company_id');
                   $emp_detail9 =DB::connection('sqlsrv2')->table('Emp_Profile')->join('Emp_Register', 'Emp_Profile.EmployeeID', '=', 'Emp_Register.EmployeeID')->select('Emp_Profile.*','Emp_Register.*')->where('Emp_Profile.CompanyID','=',$company_id)->where('Emp_Profile.EmployeeID','=',$id)->where('Emp_Register.EmployeeCode','=',$emp_code)->where('Emp_Register.RegisterID','=',$reg_id)->exists(); 
@@ -817,36 +859,36 @@ elseif($request->hasFile('image_file4')){
                   $this->fpdf->SetTextColor(0,0,0);
 
        // $this->fpdf->Image('public/images/profile_images/pro.png',15,26,5,0);
-        $this->fpdf->SetFont('Times','B',22);
-        $this->fpdf->SetTextColor(103, 159, 250 );
-        $this->fpdf->Text(30, 30,$emp_detail1->Name);
-        $this->fpdf->Image('public/images/cv/phone.png',15,32,5,0);
-        $this->fpdf->SetFont('Times','I',12);
-        $this->fpdf->SetTextColor(0,0,0);
-        $this->fpdf->Text(30, 38, $emp_detail1->Mobile);
+                  $this->fpdf->SetFont('Times','B',22);
+                  $this->fpdf->SetTextColor(103, 159, 250 );
+                  $this->fpdf->Text(30, 30,$emp_detail1->Name);
+                  $this->fpdf->Image('public/images/cv/phone.png',15,32,5,0);
+                  $this->fpdf->SetFont('Times','I',12);
+                  $this->fpdf->SetTextColor(0,0,0);
+                  $this->fpdf->Text(30, 38, $emp_detail1->Mobile);
 
-        $this->fpdf->Image('public/images/cv/email.png',12,38,10,0);
-        $this->fpdf->Text(30, 44, $emp_detail1->Email);
-        $this->fpdf->Image('public/images/cv/gps.png',15,47,5,0);
-        $this->fpdf->Text(30, 50, $emp_detail1->Address);
-        $this->fpdf->SetDrawColor(103, 159, 250 );
-        $this->fpdf->SetLineWidth(1);
-        $this->fpdf->Line(15, 61, 190, 61);
+                 $this->fpdf->Image('public/images/cv/email.png',12,38,10,0);
+                 $this->fpdf->Text(30, 44, $emp_detail1->Email);
+                 $this->fpdf->Image('public/images/cv/gps.png',15,47,5,0);
+                 $this->fpdf->Text(30, 50, $emp_detail1->Address);
+                 $this->fpdf->SetDrawColor(103, 159, 250 );
+                 $this->fpdf->SetLineWidth(1);
+                 $this->fpdf->Line(15, 61, 190, 61);
 
 
         //Section 2
         
-        $this->fpdf->SetFont('Times','B',16);
-        $this->fpdf->SetTextColor(103, 159, 250 );
-        $this->fpdf->Text(15, 72, 'Objective'); 
-        $this->fpdf->SetFont('Times','I',14);
-        $this->fpdf->SetTextColor(0,0,0);
-        $this->fpdf->SetY(77);
-        $this->fpdf->SetX(15);
-        $this->fpdf->MultiCell(0, 5, 'A highly creative thinker, grammar Nazi, and social media enthusiast seek the position of Social Media & Content Marketing Analyst to transform technical and digital information and processes into influencial stories.');
+                $this->fpdf->SetFont('Times','B',16);
+                $this->fpdf->SetTextColor(103, 159, 250 );
+                $this->fpdf->Text(15, 72, 'Objective'); 
+                $this->fpdf->SetFont('Times','I',14);
+                $this->fpdf->SetTextColor(0,0,0);
+                $this->fpdf->SetY(77);
+                $this->fpdf->SetX(15);
+                $this->fpdf->MultiCell(0, 5, 'A highly creative thinker, grammar Nazi, and social media enthusiast seek the position of Social Media & Content Marketing Analyst to transform technical and digital information and processes into influencial stories.');
         
-        $this->fpdf->Cell(267, 5, '_________________________________________________________________________');
-        $this->fpdf->ln(7);
+                $this->fpdf->Cell(267, 5, '_________________________________________________________________________');
+                $this->fpdf->ln(7);
 
          // Section 3
 

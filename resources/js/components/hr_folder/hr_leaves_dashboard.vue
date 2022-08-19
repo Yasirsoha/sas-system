@@ -147,16 +147,16 @@
                             <div class="col-md-12">
                                 <label class="form-label" for="modalAddCardName">Leave Type</label>
                                 <span style="color: #DB4437; font-size: 11px;">*</span>
-                                <select v-model="lv_type" class="form-control">
+                                <select v-model="l_types" class="form-control">
                                     <option value="">Select Leave Type</option>
-                                    <option v-for='l_types1 in l_types.data' :value='l_types1.LeaveType'>{{ l_types1.LeaveType }}</option>
+                                    <option v-for='v1 in lv_type.data' :value='v1.LeaveType'>{{ v1.LeaveType }}</option>
                                 </select>
-                                <span style="color: #DB4437; font-size: 11px;" v-if="lv_type==''">{{e_lv_type}}</span>
+                                <span style="color: #DB4437; font-size: 11px;" v-if="l_types==''">{{e_lv_type}}</span>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label" for="modalAddCardName">Number of leaves</label>
-                                <input v-model="lv_nmbr" type="number" placeholder="Number of leaves" id="modalAddCardName" class="form-control" />
-                                <span style="color: #DB4437; font-size: 11px;" v-if="lv_nmbr==''">{{e_lv_nmbr}}</span>
+                                <input v-model="l_nmbr" type="number" placeholder="Number of leaves" id="modalAddCardName" class="form-control" />
+                                <span style="color: #DB4437; font-size: 11px;" v-if="l_nmbr==''">{{e_lv_nmbr}}</span>
                             </div>
                             <div class="col-12 text-center">
                                 <button type="submit" :disabled="disabled1" @click="delay1()" class="btn btn-primary me-1 mt-1">Submit</button>
@@ -245,7 +245,7 @@
                                 <span style="color: #DB4437; font-size: 11px;" v-if="this.emp_reason==''">{{emp_reason_error}}</span>
                             </div>
                             <div class="col-12 text-center">
-                                <button :disabled="disabled" @click="delay()" type="submit" class="btn btn-primary me-1 mt-1" data-bs-dismiss="modal" aria-label="Close">Submit</button>
+                                <button :disabled="disabled" @click="delay()" type="submit" class="btn btn-primary me-1 mt-1" >Submit</button>
                                 <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
                                     Cancel
                                 </button>
@@ -265,8 +265,10 @@
             return {
 
                 lv_type: '',
+                l_types:"",
                 lv_emp_id: '',
                 lv_nmbr: '',
+                l_nmbr:"",
                 e_lv_type: '',
                 e_lv_emp_id: '',
                 e_lv_nmbr: '',
@@ -291,7 +293,7 @@
                 emp_emp_id: '',
                 emp_name_code: '',
                 find_emp: {},
-                l_types: {},
+                v: {},
                 spinner:false,
                 emp_emp_id_error: '',
                 emp_leave_error: '',
@@ -318,6 +320,14 @@
                     this.disabled = false
                 }, 5000)
                 this.submit_leave()
+                 if (!this.emp_emp_id == '' && !this.emp_leave == '' && !this.emp_date_from == '' && !this.emp_reason == '') {
+                         this.emp_emp_id="",
+                         this.days="",
+                         this.emp_date_from="",
+                         this.emp_date_to="",
+                         this.emp_reason="",
+                         this.emp_leave=""
+                 }
             },
             delay1() {
                 this.disabled1 = true
@@ -325,23 +335,28 @@
                     this.disabled1 = false
                 }, 5000)
                 this.submit_emp_leave()
+                 if (!this.lv_emp_id == '' && !this.l_types == '' && !this.l_nmbr == '') {
+                this.lv_emp_id = "",
+                this.l_types = "",
+                this.l_nmbr = ""
+                 }
             },
 
             submit_emp_leave() {
-                if (this.lv_emp_id == '' || this.lv_type == '' || this.lv_nmbr == '') {
+                if (this.lv_emp_id == '' || this.l_types == '' || this.l_nmbr == '') {
                     if (this.lv_emp_id == '') {
                         this.e_lv_emp_id = "Select employee";
                     }
                     else {
                         this.e_lv_emp_id = "";
                     }
-                    if (this.lv_type == '') {
+                    if (this.l_types == '') {
                         this.e_lv_type = "Select leave type";
                     }
                     else {
                         this.e_lv_type = "";
                     }
-                    if (this.lv_nmbr == '') {
+                    if (this.l_nmbr == '') {
                         this.e_lv_nmbr = "Enter number of leave";
                     }
                     else {
@@ -352,23 +367,23 @@
                 else {
                     axios.post('submit_emp_leaves', {
                         lv_emp_id: this.lv_emp_id,
-                        lv_type: this.lv_type,
-                        lv_nmbr: this.lv_nmbr,
+                        lv_type: this.l_types,
+                        lv_nmbr: this.l_nmbr,
                     })
                         .then(data => {
                             if (data.data == 'Employee leave added') {
                                 this.$toastr.s("Employee leave added!", "Success");
-                                this.lv_emp_id = "";
-                                this.lv_type = "";
-                                this.lv_nmbr = "";
+                                this.lv_emp_id == "";
+                                this.l_types == "";
+                                this.l_nmbr == "";
 
                                 this.getbyfilter();
                             }
                             else if (data.data == 'Employee leave updated') {
                                 this.$toastr.s("Employee leaves updates!", "Success");
                                 this.lv_emp_id = "";
-                                this.lv_type = "";
-                                this.lv_nmbr = "";
+                                this.l_types = "";
+                                this.l_nmbr = "";
 
                                 this.getbyfilter();
                             }
@@ -390,7 +405,7 @@
                     .catch(error => { });
             },
             submit_leave() {
-                if (this.emp_emp_id == '' || this.emp_emp_id == '' || this.emp_date_from == '' || this.emp_reason == '') {
+                if (this.emp_emp_id == '' || this.emp_leave == '' || this.emp_date_from == '' || this.emp_reason == '') {
                     if (this.emp_emp_id == '') {
                         this.emp_emp_id_error = "Select employee";
                     }
@@ -430,7 +445,7 @@
                     })
                         .then(data => {
                             if (data.data == 'submitted') {
-                                this.$toastr.s("Submitted Leave Successfully!", "Congratulations");
+                        this.$toastr.s("Submitted Leave Successfully!", "Congratulations");
                             }
 
                         })
@@ -452,8 +467,11 @@
 
         mounted() {
             this.getbyfilter();
-            axios.get('view_leave_typeede/edede')
-                .then(response => {this.spinner=false,this.l_types = response.data})
+            axios.get('view_leave_type')
+                .then(response => {
+                    console.log("view leave",response);
+                    
+                    this.spinner=false,this.lv_type = response.data})
                 .catch(error => {this.spinner=true });
 
             axios.get('department_detail2')

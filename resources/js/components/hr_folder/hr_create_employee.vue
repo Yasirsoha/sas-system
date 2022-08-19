@@ -267,6 +267,13 @@
                     this.disabled = false
                 }, 5000)
                 this.submit_employee()
+                this.url = null , 
+                this.full_name = '' , 
+                this.father_name = '' , 
+                this.gender = '' 
+                , this.m_status = '' ,
+                    this.cnic = '' , this.cnic_expiry = '' , this.phone_number = '' ,
+                    this.relation = '' , this.address = '' , this.city = ''
             },
 
             validEmail: function (email) {
@@ -399,24 +406,6 @@
                     axios.post('./create_employee', formData)
                         .then(data => {
                             this.$toastr.s("New Employee Added Successfully.Please Complete The Profile", "Congratulations");
-                            this.image_file = '';
-                            this.cnic_expiry = '';
-                            this.full_name = '';
-                            this.father_name = '';
-                            this.gender = '';
-                            this.m_status = '';
-                            this.blood_group = '';
-                            this.email = '';
-                            this.company_email = '';
-                            this.cnic = '';
-                            this.phone_number = '';
-                            this.phone_number2 = '';
-                            this.dob = '';
-                            this.religion = '';
-                            this.address = '';
-                            this.city = '';
-                            this.relation = '';
-                            this.image_path = '';
                             console.log(data.data);
                         })
                         .catch(error => this.error = error.response.data.errors)
